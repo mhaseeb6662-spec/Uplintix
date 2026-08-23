@@ -5,14 +5,12 @@ import {
   Palette, 
   Share2, 
   TrendingUp, 
-  UserCheck, 
   Code, 
   Layers, 
   Cpu, 
-  CheckCircle2, 
   ArrowRight, 
   Sparkles, 
-  Zap 
+  CheckCircle2
 } from 'lucide-react';
 import SlowScrollReveal from '../components/SlowScrollReveal';
 import TiltCard from '../components/TiltCard';
@@ -22,113 +20,105 @@ export default function ServicesPage() {
 
   const creativeServices = [
     {
-      title: 'Video Production & Editing',
-      tagline: 'Turn your ideas into content people actually want to watch.',
-      icon: Video,
-      items: [
-        'Social Media Videos',
-        'Reels & Short-Form Content',
-        'Promotional Videos',
-        'Product Videos',
-        'Corporate Videos',
-        'Video Ads',
-        'Post-Production & Editing'
-      ]
+      title: 'Video Production',
+      desc: 'Turn your ideas into engaging video content.',
+      benefit: 'Capture attention and drive higher engagement.',
+      icon: Video
     },
     {
       title: 'Graphic Design & Branding',
-      tagline: 'Build a visual identity people remember.',
-      icon: Palette,
-      items: [
-        'Brand Identity',
-        'Social Media Designs',
-        'Marketing Creatives',
-        'Promotional Graphics',
-        'Presentation Design',
-        'Product Graphics'
-      ]
+      desc: 'Build a memorable and professional visual identity.',
+      benefit: 'Stand out and build trust with your audience.',
+      icon: Palette
     }
   ];
 
   const digitalMarketingServices = [
     {
       title: 'Social Media Management',
-      tagline: 'We help businesses stay consistent, relevant, and visible across their social platforms.',
-      icon: Share2,
-      items: [
-        'Content Strategy',
-        'Content Creation',
-        'Scheduling & Publishing',
-        'Community Management',
-        'Analytics & Reporting'
-      ]
+      desc: 'Stay consistent, relevant, and visible across all platforms.',
+      benefit: 'Grow a loyal community around your brand.',
+      icon: Share2
     },
     {
       title: 'Performance Marketing',
-      tagline: "Don't just reach people. Reach the right people.",
-      icon: TrendingUp,
-      items: [
-        'Paid Social Campaigns',
-        'Lead Generation',
-        'Conversion Campaigns',
-        'Campaign Optimization',
-        'Performance Tracking'
-      ]
-    },
-    {
-      title: 'Influencer Marketing',
-      tagline: 'Connect your brand with creators who can influence your target audience.',
-      icon: UserCheck,
-      items: [
-        'Influencer Research',
-        'Creator Selection',
-        'Campaign Strategy',
-        'Campaign Management',
-        'Performance Tracking'
-      ]
+      desc: 'Data-driven ad campaigns designed for high ROI.',
+      benefit: 'Reach the right people and increase sales.',
+      icon: TrendingUp
     }
   ];
 
   const techServices = [
     {
       title: 'Website Design & Development',
-      tagline: 'Your website should do more than look good. It should support your business.',
-      icon: Code,
-      items: [
-        'Business Websites',
-        'Landing Pages',
-        'E-commerce Websites',
-        'Custom Web Solutions',
-        'Responsive Development',
-        'Website Maintenance'
-      ]
+      desc: 'High-performing websites that look great and convert.',
+      benefit: 'Turn website visitors into paying customers.',
+      icon: Code
     },
     {
-      title: 'Web Applications & Custom Software',
-      tagline: 'We turn business processes and ideas into practical digital products.',
-      icon: Layers,
-      items: [
-        'Web Applications',
-        'Custom Software',
-        'Business Dashboards',
-        'Internal Tools',
-        'Client Portals',
-        'Workflow Systems'
-      ]
+      title: 'Web Apps & Software',
+      desc: 'Custom digital products to run your business.',
+      benefit: 'Streamline operations with powerful tools.',
+      icon: Layers
     },
     {
       title: 'AI & Automation',
-      tagline: 'Use technology to reduce repetitive work and create smarter workflows.',
-      icon: Cpu,
-      items: [
-        'AI Integrations',
-        'Workflow Automation',
-        'AI Chatbots',
-        'Business Automation',
-        'AI-powered Tools'
-      ]
+      desc: 'Smart workflows to handle repetitive tasks.',
+      benefit: 'Save time and scale your business effortlessly.',
+      icon: Cpu
     }
   ];
+
+  const renderServiceSection = (title, subtitle, services) => (
+    <SlowScrollReveal>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="border-l-4 border-emerald-500 pl-4 space-y-1">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
+            {title}
+          </h2>
+          <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{subtitle}</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((srv, idx) => {
+            const IconC = srv.icon;
+            return (
+              <TiltCard
+                key={idx}
+                maxTilt={10}
+                scale={1.02}
+                className="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold">
+                    <IconC className="w-7 h-7" />
+                  </div>
+
+                  <h3 className="text-2xl font-extrabold text-slate-900">{srv.title}</h3>
+                  <p className="text-slate-600 text-sm font-medium">{srv.desc}</p>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-start gap-2 text-sm font-bold text-emerald-700">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                    <span>{srv.benefit}</span>
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-slate-100">
+                  <button
+                    onClick={() => navigate('/contact')}
+                    className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Inquire</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </TiltCard>
+            );
+          })}
+        </div>
+      </section>
+    </SlowScrollReveal>
+  );
 
   return (
     <div className="pt-28 pb-20 space-y-20 bg-slate-50">
@@ -142,176 +132,18 @@ export default function ServicesPage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
-            Digital Services Built Around <span className="text-gradient-green">Your Business Goals.</span>
+            Digital Services Built Around <span className="text-gradient-green">Your Goals.</span>
           </h1>
 
           <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-            From creative content to technology and growth marketing, Uplintix brings the capabilities you need to build, launch, and grow in one place.
+            We provide everything you need to build, launch, and grow in one place. Focus on your business; we handle the digital side.
           </p>
         </div>
       </section>
 
-      {/* 1. CREATIVE SERVICES */}
-      <SlowScrollReveal>
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="border-l-4 border-emerald-500 pl-4 space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
-              CREATIVE SERVICES
-            </h2>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Content & Visual Identity</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {creativeServices.map((srv, idx) => {
-              const IconC = srv.icon;
-              return (
-                <TiltCard
-                  key={idx}
-                  maxTilt={10}
-                  scale={1.02}
-                  className="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold">
-                      <IconC className="w-7 h-7" />
-                    </div>
-
-                    <h3 className="text-2xl font-extrabold text-slate-900">{srv.title}</h3>
-                    <p className="text-emerald-700 text-sm font-bold italic">{srv.tagline}</p>
-
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 border-t border-slate-100">
-                      {srv.items.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-slate-100">
-                    <button
-                      onClick={() => navigate('/contact')}
-                      className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
-                    >
-                      <span>Inquire About {srv.title}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </TiltCard>
-              );
-            })}
-          </div>
-        </section>
-      </SlowScrollReveal>
-
-      {/* 2. DIGITAL MARKETING */}
-      <SlowScrollReveal>
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="border-l-4 border-emerald-500 pl-4 space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
-              DIGITAL MARKETING
-            </h2>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Social, Performance & Influencer Growth</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {digitalMarketingServices.map((srv, idx) => {
-              const IconC = srv.icon;
-              return (
-                <TiltCard
-                  key={idx}
-                  maxTilt={10}
-                  scale={1.02}
-                  className="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold">
-                      <IconC className="w-7 h-7" />
-                    </div>
-
-                    <h3 className="text-2xl font-extrabold text-slate-900">{srv.title}</h3>
-                    <p className="text-emerald-700 text-sm font-bold italic">{srv.tagline}</p>
-
-                    <ul className="space-y-2.5 pt-4 border-t border-slate-100">
-                      {srv.items.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-slate-100">
-                    <button
-                      onClick={() => navigate('/contact')}
-                      className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
-                    >
-                      <span>Get Started</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </TiltCard>
-              );
-            })}
-          </div>
-        </section>
-      </SlowScrollReveal>
-
-      {/* 3. TECHNOLOGY SERVICES */}
-      <SlowScrollReveal>
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="border-l-4 border-emerald-500 pl-4 space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
-              TECHNOLOGY SERVICES
-            </h2>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Websites, Software & AI Systems</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {techServices.map((srv, idx) => {
-              const IconC = srv.icon;
-              return (
-                <TiltCard
-                  key={idx}
-                  maxTilt={10}
-                  scale={1.02}
-                  className="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold">
-                      <IconC className="w-7 h-7" />
-                    </div>
-
-                    <h3 className="text-2xl font-extrabold text-slate-900">{srv.title}</h3>
-                    <p className="text-emerald-700 text-sm font-bold italic">{srv.tagline}</p>
-
-                    <ul className="space-y-2.5 pt-4 border-t border-slate-100">
-                      {srv.items.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-slate-100">
-                    <button
-                      onClick={() => navigate('/contact')}
-                      className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
-                    >
-                      <span>Build Your System</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </TiltCard>
-              );
-            })}
-          </div>
-        </section>
-      </SlowScrollReveal>
+      {renderServiceSection('Creative Services', 'Content & Visual Identity', creativeServices)}
+      {renderServiceSection('Digital Marketing', 'Growth & Reach', digitalMarketingServices)}
+      {renderServiceSection('Technology Services', 'Websites, Software & AI', techServices)}
 
       {/* SERVICE CTA */}
       <SlowScrollReveal>

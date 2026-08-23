@@ -38,44 +38,32 @@ export default function HeroSection({ onOpenVideo }) {
             
             {/* Eyebrow Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-800 text-xs font-extrabold tracking-wider uppercase shadow-xs">
-              <span className="font-mono text-emerald-700 font-black">CREATIVE • TECHNOLOGY • GROWTH</span>
+              <span className="font-mono text-emerald-700 font-black">YOUR DIGITAL PARTNER</span>
             </div>
 
             {/* H1 Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.12] tracking-tight">
-              We Build Digital Experiences That <span className="text-gradient-green">Help Businesses Grow.</span>
+              We Build Digital Experiences That <span className="text-gradient-green">Drive Growth.</span>
             </h1>
 
             {/* Subheading */}
             <p className="text-slate-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              Uplintix is a full-service digital agency helping ambitious businesses turn ideas into powerful brands, digital experiences, and growth systems — from creative content and social media to websites, software, and digital marketing.
+              We help businesses create powerful brands, high-performing websites, and effective marketing campaigns. Everything you need to grow, under one roof.
             </p>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <button
                 onClick={() => navigate('/contact')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-gradient-green text-white font-extrabold text-sm tracking-wide shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-green text-white font-extrabold text-sm tracking-wide shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
               >
                 <span>Start Your Project</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-
-              <button
-                onClick={() => navigate('/work')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white border border-slate-300 text-slate-800 font-extrabold text-sm hover:bg-slate-50 hover:border-slate-400 transition-all duration-200 shadow-sm cursor-pointer"
-              >
-                <span>Explore Our Work</span>
-                <ArrowRight className="w-4 h-4 text-slate-400" />
-              </button>
             </div>
 
             {/* Trust Line & Social Proof */}
-            <div className="pt-6 border-t border-slate-200/80 space-y-3">
-              <p className="text-xs font-bold text-slate-500 tracking-wide uppercase">
-                Creative minds. Technical expertise. Business-focused execution.
-              </p>
-
+            <div className="pt-6 border-t border-slate-200/80">
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <div className="flex -space-x-2 overflow-hidden">
                   {avatars.map((url, index) => (

@@ -4,7 +4,6 @@ import {
   Sparkles, 
   Target, 
   Compass, 
-  Award, 
   ShieldCheck, 
   Heart, 
   BookOpen, 
@@ -23,45 +22,25 @@ export default function AboutPage() {
   const navigate = useNavigate();
 
   const values = [
-    {
-      title: 'Ownership',
-      icon: ShieldCheck,
-      desc: 'We take responsibility for the work we deliver.'
-    },
-    {
-      title: 'Creativity',
-      icon: Heart,
-      desc: 'We look for better ways to communicate and solve problems.'
-    },
-    {
-      title: 'Learning',
-      icon: BookOpen,
-      desc: 'We continuously improve our skills, systems, and processes.'
-    },
-    {
-      title: 'Transparency',
-      icon: Eye,
-      desc: 'Clear communication. Clear expectations. Clear work.'
-    },
-    {
-      title: 'Growth',
-      icon: TrendingUp,
-      desc: 'We measure success by the value we create.'
-    }
+    { title: 'Ownership', icon: ShieldCheck, desc: 'We take responsibility for the work we deliver.' },
+    { title: 'Creativity', icon: Heart, desc: 'We look for better ways to communicate and solve problems.' },
+    { title: 'Learning', icon: BookOpen, desc: 'We continuously improve our skills and systems.' },
+    { title: 'Transparency', icon: Eye, desc: 'Clear communication. Clear expectations. Clear work.' },
+    { title: 'Growth', icon: TrendingUp, desc: 'We measure success by the value we create.' }
   ];
 
   const teamDepartments = [
     {
-      dept: 'Leadership & Executive Strategy',
-      roles: 'Founder / CEO: Strategy • Business Development • Creative Direction',
+      dept: 'Leadership & Strategy',
+      roles: 'Strategy • Business Dev • Creative Direction',
       lead: 'Abu Bakar & Ubaidullah',
       icon: Target,
       image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80'
     },
     {
       dept: 'Technology Team',
-      roles: 'Web Development • Software • Digital Solutions',
-      lead: 'Haseeb Khan (Lead Architect)',
+      roles: 'Web Dev • Software • Solutions',
+      lead: 'Haseeb Khan (Lead)',
       icon: Code,
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=80'
     },
@@ -74,7 +53,7 @@ export default function AboutPage() {
     },
     {
       dept: 'Marketing Team',
-      roles: 'Social Media • Influencer • Performance Marketing',
+      roles: 'Social Media • Performance Marketing',
       lead: 'Zainab & Hamza',
       icon: Share2,
       image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80'
@@ -84,7 +63,7 @@ export default function AboutPage() {
   return (
     <div className="pt-28 pb-20 space-y-20 bg-slate-50">
       
-      {/* Hero */}
+      {/* Hero & Story */}
       <section className="bg-white py-16 sm:py-20 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-extrabold uppercase tracking-wider">
@@ -93,43 +72,22 @@ export default function AboutPage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
-            We Started With Skills. <span className="text-gradient-green">We're Building Something Bigger.</span>
+            We Help Businesses <span className="text-gradient-green">Build Better and Grow Faster.</span>
           </h1>
 
-          <div className="space-y-3 text-slate-600 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-medium">
-            <p>Uplintix was built with a simple idea: Great businesses deserve great digital experiences.</p>
-            <p>What started with creative services is growing into a broader digital company combining creative, technology, marketing, and innovation.</p>
-            <p className="text-emerald-700 font-bold">Our goal is simple: Help businesses build better, communicate better, and grow faster.</p>
+          <div className="space-y-3 text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+            <p>
+              We believe you shouldn't have to hire five different agencies to build your digital presence. 
+              That's why we bring creative, technology, and marketing together under one roof.
+            </p>
           </div>
         </div>
       </section>
-
-      {/* OUR STORY */}
-      <SlowScrollReveal>
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-950 text-white rounded-3xl p-8 sm:p-14 border border-slate-800 shadow-2xl space-y-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
-
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 text-xs font-extrabold uppercase tracking-wider">
-              <span>OUR STORY</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-              We believe businesses shouldn't have to work with five different teams to build their digital presence.
-            </h2>
-
-            <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl font-medium">
-              That's why Uplintix brings creative production, digital marketing, web development, and emerging technology together under one team.
-            </p>
-          </div>
-        </section>
-      </SlowScrollReveal>
 
       {/* MISSION & VISION */}
       <SlowScrollReveal>
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* OUR MISSION */}
             <TiltCard
               maxTilt={10}
               scale={1.02}
@@ -140,14 +98,13 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xs font-extrabold text-emerald-600 uppercase tracking-widest">OUR MISSION</h3>
               <h4 className="text-2xl font-extrabold text-slate-900 leading-tight">
-                Make High-Quality Digital Solutions More Accessible to Growing Businesses.
+                Accessible Digital Growth
               </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                We help ambitious businesses turn ideas into brands, digital experiences, and systems that create real value.
+                We make high-quality digital solutions accessible to ambitious businesses, turning ideas into scalable systems.
               </p>
             </TiltCard>
 
-            {/* OUR VISION */}
             <TiltCard
               maxTilt={10}
               scale={1.02}
@@ -158,10 +115,10 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xs font-extrabold text-emerald-600 uppercase tracking-widest">OUR VISION</h3>
               <h4 className="text-2xl font-extrabold text-slate-900 leading-tight">
-                Build a Global Digital Company From Pakistan.
+                A Global Digital Company
               </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Our long-term vision goes beyond traditional agency services. We are building toward a company that combines <span className="font-bold text-slate-900">Creative → Marketing → Technology → AI → Software</span> to serve businesses locally and globally.
+                Combining Creative, Marketing, Technology, and AI to serve businesses both locally and globally.
               </p>
             </TiltCard>
           </div>
@@ -173,7 +130,6 @@ export default function AboutPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <h2 className="text-3xl font-extrabold text-slate-900">OUR VALUES</h2>
-            <p className="text-slate-600 text-sm">The core principles that guide our work and team culture.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -242,9 +198,6 @@ export default function AboutPage() {
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
               Let's Build Something That Matters
             </h2>
-            <p className="text-slate-300 text-base max-w-xl mx-auto leading-relaxed">
-              Whether you need creative content, a high-converting website, or a growth marketing strategy — we're ready to partner with you.
-            </p>
             <button
               onClick={() => navigate('/contact')}
               className="px-8 py-4 rounded-full bg-gradient-green text-white font-extrabold text-xs tracking-wider shadow-lg shadow-emerald-500/30 hover:scale-105 transition-all cursor-pointer inline-flex items-center gap-2"
