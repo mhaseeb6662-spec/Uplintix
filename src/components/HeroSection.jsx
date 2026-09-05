@@ -29,7 +29,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-slate-950 pt-28 lg:pt-0 pb-12 lg:pb-0">
+    <section className="relative w-full min-h-[100svh] flex flex-col lg:justify-center overflow-hidden bg-slate-950 pt-28 lg:pt-0 pb-16 lg:pb-0">
       
       {/* Cinematic Dark Background & Lighting */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -40,7 +40,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_20%,transparent_100%)] opacity-50"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex flex-col lg:flex-row items-center lg:min-h-[100svh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex flex-col lg:flex-row lg:items-center lg:min-h-[100svh]">
         
         {/* Content Column (Normal flow on mobile, left grid col on desktop) */}
         <motion.div 
