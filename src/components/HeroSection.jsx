@@ -1,63 +1,51 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Hero3DCanvas from './Hero3DCanvas';
 
 export default function HeroSection() {
   const navigate = useNavigate();
 
-  const clientLogos = [
-    { name: 'Creative', symbol: '✦' },
-    { name: 'Web', symbol: '■' },
-    { name: 'Software', symbol: '●' },
-    { name: 'AI', symbol: '▲' },
-    { name: 'Automation', symbol: '◆' },
-    { name: 'Growth', symbol: '★' },
-  ];
-
-  const avatars = [
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80',
-  ];
+  const capabilities = ['Creative', 'Web', 'Software', 'AI', 'Automation'];
 
   return (
-    <section id="home-hero" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-gradient-to-b from-slate-50/40 via-white to-slate-50/50">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-slate-50">
       
-      {/* Decorative Grid Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
+      {/* Premium Background Depth */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-100/40 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30"></div>
+        {/* Soft vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(248,250,252,0.8)_100%)]"></div>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-20 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           
-          {/* Left Column: Text Content */}
-          <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
+          {/* Content Column */}
+          <div className="lg:col-span-6 flex flex-col justify-center space-y-8 mt-12 lg:mt-0 order-2 lg:order-1 relative z-20">
             
-            {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-white text-[11px] font-extrabold tracking-widest uppercase shadow-xs">
-              <span>Uplintix Digital Solutions</span>
+            <div className="space-y-6">
+              <h1 className="text-[2.5rem] leading-[1.05] sm:text-5xl lg:text-[4rem] font-extrabold text-slate-900 tracking-tight">
+                Creative Thinking.<br />
+                Powerful Technology.<br />
+                <span className="text-emerald-600 relative inline-block">
+                  Real Business Growth.
+                  {/* Subtle accent line */}
+                  <span className="absolute -bottom-2 left-0 w-full h-[6px] bg-emerald-200/60 -z-10 rounded-full"></span>
+                </span>
+              </h1>
+
+              <p className="text-slate-600 text-lg sm:text-xl max-w-lg leading-relaxed font-medium">
+                Uplintix combines creative content, modern websites, software, AI and automation to build digital solutions that move businesses forward.
+              </p>
             </div>
 
-            {/* H1 Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.12] tracking-tight">
-              Creative Thinking.<br/>
-              Powerful Technology.<br/>
-              <span className="text-gradient-green">Real Business Growth.</span>
-            </h1>
-
-            {/* Subheading */}
-            <p className="text-slate-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              Uplintix combines creativity, digital experiences, and modern technology to help ambitious businesses grow.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-start gap-5 pt-2">
               <button
                 onClick={() => navigate('/contact')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-green text-white font-extrabold text-sm tracking-wide shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-slate-900 text-white font-bold text-sm tracking-wide shadow-xl shadow-slate-900/10 hover:bg-emerald-600 hover:shadow-emerald-500/25 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
               >
                 <span>Start a Project</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -65,70 +53,38 @@ export default function HeroSection() {
 
               <button
                 onClick={() => navigate('/work')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-extrabold text-sm hover:bg-slate-50 hover:border-slate-400 transition-all duration-200 shadow-sm cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white border border-slate-200 text-slate-700 font-bold text-sm hover:border-slate-300 hover:bg-slate-50 transition-all duration-200 shadow-sm cursor-pointer"
               >
                 <span>Explore Our Work</span>
-                <ArrowRight className="w-4 h-4 text-slate-400" />
               </button>
             </div>
 
-            {/* Trust Line & Social Proof */}
-            <div className="pt-6 border-t border-slate-200/80">
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <div className="flex -space-x-2 overflow-hidden">
-                  {avatars.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url}
-                      alt="Client review avatar"
-                      className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover shadow-sm"
-                    />
-                  ))}
-                </div>
-
-                <div className="text-center sm:text-left">
-                  <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
-                    ))}
-                    <span className="ml-1 text-xs font-extrabold text-slate-900">5.0</span>
-                  </div>
-                  <p className="text-xs font-semibold text-slate-600 mt-0.5">
-                    <span className="text-slate-900 font-bold">50+ Projects Delivered</span> Worldwide
-                  </p>
-                </div>
+            {/* Capabilities */}
+            <div className="pt-8 lg:pt-12">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-extrabold text-slate-400 tracking-widest uppercase">
+                {capabilities.map((cap, idx) => (
+                  <React.Fragment key={cap}>
+                    <span className="text-slate-700">{cap}</span>
+                    {idx < capabilities.length - 1 && <span className="w-1 h-1 rounded-full bg-emerald-400"></span>}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: 3D Interactive Hero Canvas */}
-          <div className="lg:col-span-6 relative w-full flex items-center justify-center overflow-visible">
+          {/* 3D Visual Column */}
+          <div className="lg:col-span-6 relative w-full h-[50vh] sm:h-[60vh] lg:h-[80vh] flex items-center justify-center order-1 lg:order-2">
             <Hero3DCanvas />
           </div>
 
         </div>
 
-        {/* Client Marquee / Trust Badges Banner */}
-        <div className="mt-16 pt-10 border-t border-slate-200/70">
-          <p className="text-center text-xs font-extrabold tracking-widest text-slate-400 uppercase mb-6">
-            One partner. From content to technology.
+        {/* Optional Trust Line */}
+        <div className="absolute bottom-6 left-4 sm:left-6 lg:left-8 z-10 hidden sm:block">
+          <p className="text-xs font-bold text-slate-500 tracking-wider">
+            Creative & technology solutions for ambitious businesses.
           </p>
-
-          <div className="relative overflow-hidden w-full py-4">
-            <div className="flex flex-wrap items-center justify-center sm:justify-between gap-6 sm:gap-8 md:gap-12 opacity-80 transition-all duration-300">
-              {clientLogos.map((client, index) => (
-                <div key={index} className="flex items-center gap-2 group cursor-pointer">
-                  <span className="text-xl sm:text-2xl font-black tracking-tighter text-emerald-500 group-hover:text-emerald-600 transition-colors">
-                    {client.symbol}
-                  </span>
-                  <span className="text-base sm:text-lg font-extrabold text-slate-700 group-hover:text-slate-900 transition-colors uppercase tracking-wider">
-                    {client.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
       </div>
