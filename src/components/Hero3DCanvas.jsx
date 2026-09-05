@@ -1,260 +1,271 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Environment, Float, Html, Line, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-export default function Hero3DCanvas() {
-  const mountRef = useRef(null);
+// Cinematic Ecosystem Node
+const EcosystemNode = ({ position, label, delay, color }) => {
+  const meshRef = useRef();
+  const htmlRef = useRef();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const container = mountRef.current;
-    if (!container) return;
+    const timer = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
 
-    // Scene Setup
-    const scene = new THREE.Scene();
-    
-    // Camera Setup
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(0, 0, 12);
-
-    // Renderer Setup
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // Main Group for Interaction
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
-
-    // Central Core
-    const coreGeo = new THREE.IcosahedronGeometry(1.2, 1);
-    const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a, // slate-900
-      metalness: 0.9,
-      roughness: 0.1,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.8
-    });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    mainGroup.add(coreMesh);
-
-    // Core Solid Inner
-    const innerCoreGeo = new THREE.IcosahedronGeometry(0.8, 0);
-    const innerCoreMat = new THREE.MeshStandardMaterial({
-      color: 0x10b981, // emerald-500
-      metalness: 0.5,
-      roughness: 0.2,
-      emissive: 0x059669,
-      emissiveIntensity: 0.5
-    });
-    const innerCoreMesh = new THREE.Mesh(innerCoreGeo, innerCoreMat);
-    mainGroup.add(innerCoreMesh);
-
-    // Orbital Nodes (Creative, Web, Software, AI, Automation)
-    const nodeCount = 5;
-    const nodes = [];
-    const orbitRadius = 3.5;
-    
-    const nodeGeo = new THREE.SphereGeometry(0.15, 16, 16);
-    const nodeMat = new THREE.MeshStandardMaterial({
-      color: 0x34d399,
-      metalness: 0.8,
-      roughness: 0.2,
-      emissive: 0x10b981,
-      emissiveIntensity: 0.8
-    });
-
-    const linesMat = new THREE.LineBasicMaterial({
-      color: 0x94a3b8,
-      transparent: true,
-      opacity: 0.3
-    });
-
-    // Create orbits and nodes
-    for (let i = 0; i < nodeCount; i++) {
-      // Orbit Ring
-      const ringGeo = new THREE.RingGeometry(orbitRadius - 0.02, orbitRadius + 0.02, 64);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0xcbd5e1, transparent: true, opacity: 0.1, side: THREE.DoubleSide });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
+  useFrame((state) => {
+    if (meshRef.current) {
+      // Gentle floating and rotation
+      meshRef.current.rotation.y += 0.01;
+      meshRef.current.rotation.x += 0.005;
       
-      // Random tilt for each orbit
-      ring.rotation.x = Math.random() * Math.PI;
-      ring.rotation.y = Math.random() * Math.PI;
-      mainGroup.add(ring);
-
-      // Node on the ring
-      const node = new THREE.Mesh(nodeGeo, nodeMat);
-      const angle = (i / nodeCount) * Math.PI * 2;
-      
-      // We will update node positions in the animation loop based on ring rotation
-      nodes.push({
-        mesh: node,
-        ring: ring,
-        angle: angle,
-        speed: 0.2 + Math.random() * 0.3
-      });
-      mainGroup.add(node);
-    }
-
-    // Connect nodes to core with lines
-    const lineGeometry = new THREE.BufferGeometry();
-    const linePositions = new Float32Array(nodeCount * 6); // 2 points (core + node) per line * 3 coordinates
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-    const lines = new THREE.LineSegments(lineGeometry, linesMat);
-    mainGroup.add(lines);
-
-    // Ambient Particles
-    const particlesCount = 100;
-    const particlePositions = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount * 3; i++) {
-      particlePositions[i] = (Math.random() - 0.5) * 15;
-    }
-    const particlesGeo = new THREE.BufferGeometry();
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-    const particlesMat = new THREE.PointsMaterial({
-      size: 0.03,
-      color: 0x10b981,
-      transparent: true,
-      opacity: 0.4
-    });
-    const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
-    scene.add(particlesMesh);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-    scene.add(ambientLight);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 2);
-    dirLight.position.set(5, 5, 5);
-    scene.add(dirLight);
-
-    const emeraldLight = new THREE.PointLight(0x10b981, 4, 15);
-    emeraldLight.position.set(0, 0, 0);
-    scene.add(emeraldLight);
-
-    // Mouse Interaction
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    const handleMouseMove = (event) => {
-      const rect = container.getBoundingClientRect();
-      const x = event.clientX - rect.left - rect.width / 2;
-      const y = event.clientY - rect.top - rect.height / 2;
-      targetX = (x / rect.width) * 1.5; // Sensitivity
-      targetY = (y / rect.height) * 1.5;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Resize Handler
-    const handleResize = () => {
-      if (!container) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
-
-    window.addEventListener('resize', handleResize);
-    const resizeObserver = new ResizeObserver(() => handleResize());
-    resizeObserver.observe(container);
-
-    // Animation Loop
-    let animationFrameId;
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
-      const time = clock.getElapsedTime();
-
-      // Smooth Mouse Follow
-      currentX += (targetX - currentX) * 0.05;
-      currentY += (targetY - currentY) * 0.05;
-
-      mainGroup.rotation.y = time * 0.1 + currentX;
-      mainGroup.rotation.x = Math.sin(time * 0.1) * 0.1 + currentY;
-
-      // Core Animation
-      coreMesh.rotation.x -= 0.2 * delta;
-      coreMesh.rotation.y += 0.3 * delta;
-      innerCoreMesh.rotation.x += 0.4 * delta;
-      innerCoreMesh.rotation.y -= 0.5 * delta;
-      
-      // Pulse core light
-      emeraldLight.intensity = 3 + Math.sin(time * 2) * 1;
-
-      // Orbit Nodes
-      const positions = lines.geometry.attributes.position.array;
-      
-      nodes.forEach((node, i) => {
-        node.angle += node.speed * delta;
-        
-        // Calculate position on the tilted ring
-        const x = Math.cos(node.angle) * orbitRadius;
-        const y = Math.sin(node.angle) * orbitRadius;
-        
-        // Apply ring's rotation matrix to get world position relative to mainGroup
-        const vec = new THREE.Vector3(x, y, 0);
-        vec.applyEuler(node.ring.rotation);
-        
-        node.mesh.position.copy(vec);
-
-        // Update lines
-        const lineIdx = i * 6;
-        // Point 1 (Core)
-        positions[lineIdx] = innerCoreMesh.position.x;
-        positions[lineIdx + 1] = innerCoreMesh.position.y;
-        positions[lineIdx + 2] = innerCoreMesh.position.z;
-        // Point 2 (Node)
-        positions[lineIdx + 3] = vec.x;
-        positions[lineIdx + 4] = vec.y;
-        positions[lineIdx + 5] = vec.z;
-      });
-      
-      lines.geometry.attributes.position.needsUpdate = true;
-
-      // Particles
-      particlesMesh.rotation.y = time * 0.02;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
-      resizeObserver.disconnect();
-      cancelAnimationFrame(animationFrameId);
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
+      // Scale animation on reveal
+      if (visible) {
+        meshRef.current.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+        if (htmlRef.current) htmlRef.current.style.opacity = 1;
+      } else {
+        meshRef.current.scale.set(0, 0, 0);
+        if (htmlRef.current) htmlRef.current.style.opacity = 0;
       }
-      renderer.dispose();
-      
-      // Dispose Geometries & Materials
-      coreGeo.dispose();
-      coreMat.dispose();
-      innerCoreGeo.dispose();
-      innerCoreMat.dispose();
-      nodeGeo.dispose();
-      nodeMat.dispose();
-      lineGeometry.dispose();
-      linesMat.dispose();
-      particlesGeo.dispose();
-      particlesMat.dispose();
-    };
-  }, []);
+    }
+  });
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Very subtle glow behind the canvas to give it a premium feel without overdoing it */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-emerald-500/10 rounded-full filter blur-[100px] pointer-events-none"></div>
+    <group position={position}>
+      <mesh ref={meshRef}>
+        <octahedronGeometry args={[0.3, 0]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={0.8} 
+          roughness={0.2} 
+          emissive={color}
+          emissiveIntensity={0.5}
+          wireframe
+        />
+      </mesh>
       
-      <div ref={mountRef} className="w-full h-full relative z-10 cursor-default" />
+      {/* HTML Label attached to the 3D Node */}
+      <Html 
+        distanceFactor={15} 
+        zIndexRange={[100, 0]} 
+        center
+        position={[0, -0.6, 0]}
+      >
+        <div 
+          ref={htmlRef}
+          className="transition-opacity duration-1000 ease-in-out pointer-events-none opacity-0"
+        >
+          <div className="px-3 py-1 bg-slate-900/80 backdrop-blur-md border border-slate-700/50 rounded-full text-[10px] font-extrabold tracking-wider text-slate-300 whitespace-nowrap shadow-xl">
+            {label}
+          </div>
+        </div>
+      </Html>
+    </group>
+  );
+};
+
+// Orbital Rings and Connecting Lines
+const Connections = ({ nodes, coreVisible }) => {
+  const lineRef = useRef();
+
+  useFrame(() => {
+    if (lineRef.current) {
+      lineRef.current.material.opacity = THREE.MathUtils.lerp(
+        lineRef.current.material.opacity, 
+        coreVisible ? 0.3 : 0, 
+        0.02
+      );
+    }
+  });
+
+  // Create smooth orbital paths based on node positions
+  const points = useMemo(() => {
+    return nodes.map(n => new THREE.Vector3(...n.position));
+  }, [nodes]);
+
+  // Connect them to core (0,0,0) and to each other
+  const linePoints = useMemo(() => {
+    const pts = [];
+    nodes.forEach(n => {
+      pts.push(new THREE.Vector3(0,0,0));
+      pts.push(new THREE.Vector3(...n.position));
+    });
+    // Add outer ring connection
+    for (let i = 0; i < nodes.length; i++) {
+      pts.push(new THREE.Vector3(...nodes[i].position));
+      pts.push(new THREE.Vector3(...nodes[(i + 1) % nodes.length].position));
+    }
+    return pts;
+  }, [nodes]);
+
+  return (
+    <group>
+      <Line
+        ref={lineRef}
+        points={linePoints}
+        color="#10b981"
+        lineWidth={1}
+        transparent
+        opacity={0}
+      />
+    </group>
+  );
+};
+
+// Core Uplintix Object
+const Core = ({ onReveal }) => {
+  const groupRef = useRef();
+  const innerRef = useRef();
+  const htmlRef = useRef();
+  
+  useEffect(() => {
+    // Cinematic start delay
+    const timer = setTimeout(() => onReveal(true), 1500);
+    return () => clearTimeout(timer);
+  }, [onReveal]);
+
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.1;
+      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+    }
+    if (innerRef.current) {
+      innerRef.current.rotation.y -= delta * 0.2;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {/* Outer Cage */}
+      <mesh>
+        <icosahedronGeometry args={[1.5, 1]} />
+        <meshStandardMaterial 
+          color="#0f172a" 
+          metalness={1} 
+          roughness={0.1} 
+          wireframe 
+          transparent 
+          opacity={0.3} 
+        />
+      </mesh>
+      
+      {/* Glowing Inner Core */}
+      <mesh ref={innerRef}>
+        <icosahedronGeometry args={[0.8, 0]} />
+        <meshStandardMaterial 
+          color="#10b981" 
+          metalness={0.5} 
+          roughness={0.2} 
+          emissive="#059669"
+          emissiveIntensity={1}
+        />
+      </mesh>
+
+      <Html center position={[0, -2, 0]} distanceFactor={15}>
+        <div className="flex flex-col items-center pointer-events-none">
+          <div className="text-xl font-black tracking-[0.2em] text-white drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]">
+            UPLINTIX
+          </div>
+          <div className="text-[9px] font-bold tracking-[0.3em] text-emerald-400 mt-1 uppercase">
+            Create • Build • Grow
+          </div>
+        </div>
+      </Html>
+    </group>
+  );
+};
+
+// Mouse Parallax System
+const Rig = () => {
+  const { camera, pointer } = useThree();
+  useFrame(() => {
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 2, 0.05);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 2, 0.05);
+    camera.lookAt(0, 0, 0);
+  });
+  return null;
+};
+
+// Ambient Particle Dust
+const Particles = () => {
+  const [positions] = useState(() => {
+    const pos = new Float32Array(300);
+    for (let i = 0; i < 300; i++) {
+      pos[i] = (Math.random() - 0.5) * 20;
+    }
+    return pos;
+  });
+
+  const ref = useRef();
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = state.clock.elapsedTime * 0.02;
+    }
+  });
+
+  return (
+    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <PointMaterial transparent color="#34d399" size={0.05} sizeAttenuation={true} depthWrite={false} opacity={0.3} />
+    </Points>
+  );
+};
+
+// Main Scene
+const CinematicScene = () => {
+  const [coreVisible, setCoreVisible] = useState(false);
+
+  const services = useMemo(() => [
+    { label: "Creative & Content", pos: [-3, 2.5, -2], color: "#34d399", delay: 2500 },
+    { label: "Web Development", pos: [3.5, 1.5, -1], color: "#10b981", delay: 3000 },
+    { label: "Software Solutions", pos: [2.5, -2.5, 1], color: "#059669", delay: 3500 },
+    { label: "AI & Automation", pos: [-2.5, -2, 2], color: "#34d399", delay: 4000 },
+    { label: "Digital Growth", pos: [0, 3.5, 1], color: "#10b981", delay: 4500 },
+  ], []);
+
+  return (
+    <>
+      <ambientLight intensity={0.2} />
+      <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
+      <pointLight position={[0, 0, 0]} intensity={2} color="#10b981" distance={10} />
+      
+      {/* Reveal Core */}
+      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+        <Core onReveal={setCoreVisible} />
+      </Float>
+
+      {/* Reveal Services around Core */}
+      {services.map((srv, i) => (
+        <Float key={i} speed={1.5} rotationIntensity={0.5} floatIntensity={1} position={[0, Math.sin(i)*0.5, 0]}>
+          <EcosystemNode 
+            position={srv.pos} 
+            label={srv.label} 
+            delay={srv.delay} 
+            color={srv.color} 
+          />
+        </Float>
+      ))}
+
+      <Connections nodes={services} coreVisible={coreVisible} />
+      <Particles />
+      <Rig />
+      
+      {/* Cinematic Fog for depth */}
+      <fog attach="fog" args={['#020617', 5, 25]} />
+    </>
+  );
+};
+
+export default function Hero3DCanvas() {
+  return (
+    <div className="w-full h-full absolute inset-0">
+      <Canvas
+        camera={{ position: [0, 0, 10], fov: 45 }}
+        dpr={[1, 2]} // limit pixel ratio for performance
+        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+      >
+        <CinematicScene />
+      </Canvas>
     </div>
   );
 }
