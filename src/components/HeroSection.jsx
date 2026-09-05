@@ -1,18 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Star, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import Hero3DCanvas from './Hero3DCanvas';
 
-export default function HeroSection({ onOpenVideo }) {
+export default function HeroSection() {
   const navigate = useNavigate();
 
   const clientLogos = [
-    { name: 'Google', symbol: 'G' },
-    { name: 'Meta', symbol: '∞' },
-    { name: 'Microsoft', symbol: '田' },
-    { name: 'Amazon', symbol: 'a' },
-    { name: 'TikTok', symbol: '🎵' },
-    { name: 'Shopify', symbol: '🛍️' },
+    { name: 'Creative', symbol: '✦' },
+    { name: 'Web', symbol: '■' },
+    { name: 'Software', symbol: '●' },
+    { name: 'AI', symbol: '▲' },
+    { name: 'Automation', symbol: '◆' },
+    { name: 'Growth', symbol: '★' },
   ];
 
   const avatars = [
@@ -24,7 +24,7 @@ export default function HeroSection({ onOpenVideo }) {
   ];
 
   return (
-    <section id="home-hero" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-gradient-to-b from-emerald-50/40 via-white to-slate-50/50">
+    <section id="home-hero" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-gradient-to-b from-slate-50/40 via-white to-slate-50/50">
       
       {/* Decorative Grid Lines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
@@ -37,18 +37,20 @@ export default function HeroSection({ onOpenVideo }) {
           <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
             
             {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-800 text-xs font-extrabold tracking-wider uppercase shadow-xs">
-              <span className="font-mono text-emerald-700 font-black">YOUR DIGITAL PARTNER</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-white text-[11px] font-extrabold tracking-widest uppercase shadow-xs">
+              <span>Uplintix Digital Solutions</span>
             </div>
 
             {/* H1 Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.12] tracking-tight">
-              We Build Digital Experiences That <span className="text-gradient-green">Drive Growth.</span>
+              Creative Thinking.<br/>
+              Powerful Technology.<br/>
+              <span className="text-gradient-green">Real Business Growth.</span>
             </h1>
 
             {/* Subheading */}
             <p className="text-slate-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              We help businesses create powerful brands, high-performing websites, and effective marketing campaigns. Everything you need to grow, under one roof.
+              Uplintix combines creativity, digital experiences, and modern technology to help ambitious businesses grow.
             </p>
 
             {/* Action Buttons */}
@@ -57,8 +59,16 @@ export default function HeroSection({ onOpenVideo }) {
                 onClick={() => navigate('/contact')}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-green text-white font-extrabold text-sm tracking-wide shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
               >
-                <span>Start Your Project</span>
+                <span>Start a Project</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <button
+                onClick={() => navigate('/work')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-extrabold text-sm hover:bg-slate-50 hover:border-slate-400 transition-all duration-200 shadow-sm cursor-pointer"
+              >
+                <span>Explore Our Work</span>
+                <ArrowRight className="w-4 h-4 text-slate-400" />
               </button>
             </div>
 
@@ -84,7 +94,7 @@ export default function HeroSection({ onOpenVideo }) {
                     <span className="ml-1 text-xs font-extrabold text-slate-900">5.0</span>
                   </div>
                   <p className="text-xs font-semibold text-slate-600 mt-0.5">
-                    <span className="text-slate-900 font-bold">50+ Happy Clients</span> Worldwide
+                    <span className="text-slate-900 font-bold">50+ Projects Delivered</span> Worldwide
                   </p>
                 </div>
               </div>
@@ -102,17 +112,17 @@ export default function HeroSection({ onOpenVideo }) {
         {/* Client Marquee / Trust Badges Banner */}
         <div className="mt-16 pt-10 border-t border-slate-200/70">
           <p className="text-center text-xs font-extrabold tracking-widest text-slate-400 uppercase mb-6">
-            Trusted By Innovative Businesses & High-Growth Brands
+            One partner. From content to technology.
           </p>
 
           <div className="relative overflow-hidden w-full py-4">
-            <div className="flex flex-wrap items-center justify-center sm:justify-between gap-6 sm:gap-8 md:gap-12 opacity-80 grayscale hover:grayscale-0 transition-all duration-300">
+            <div className="flex flex-wrap items-center justify-center sm:justify-between gap-6 sm:gap-8 md:gap-12 opacity-80 transition-all duration-300">
               {clientLogos.map((client, index) => (
                 <div key={index} className="flex items-center gap-2 group cursor-pointer">
-                  <span className="text-xl sm:text-2xl font-black tracking-tighter text-slate-800 group-hover:text-emerald-600 transition-colors">
+                  <span className="text-xl sm:text-2xl font-black tracking-tighter text-emerald-500 group-hover:text-emerald-600 transition-colors">
                     {client.symbol}
                   </span>
-                  <span className="text-base sm:text-lg font-extrabold text-slate-700 group-hover:text-slate-900 transition-colors">
+                  <span className="text-base sm:text-lg font-extrabold text-slate-700 group-hover:text-slate-900 transition-colors uppercase tracking-wider">
                     {client.name}
                   </span>
                 </div>
