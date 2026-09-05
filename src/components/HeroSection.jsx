@@ -58,7 +58,7 @@ export default function HeroSection() {
             
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-sm border border-slate-800 text-slate-300 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] shadow-2xl w-fit">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span>CREATIVE × TECHNOLOGY × GROWTH</span>
+              <span>CREATIVE • TECHNOLOGY • GROWTH</span>
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-4">

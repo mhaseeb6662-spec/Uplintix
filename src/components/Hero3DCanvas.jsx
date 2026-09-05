@@ -81,7 +81,7 @@ const Connections = ({ nodes, coreVisible }) => {
 
   // Create smooth orbital paths based on node positions
   const points = useMemo(() => {
-    return nodes.map(n => new THREE.Vector3(...n.position));
+    return nodes.map(n => new THREE.Vector3(...n.pos));
   }, [nodes]);
 
   // Connect them to core (0,0,0) and to each other
@@ -89,12 +89,12 @@ const Connections = ({ nodes, coreVisible }) => {
     const pts = [];
     nodes.forEach(n => {
       pts.push(new THREE.Vector3(0,0,0));
-      pts.push(new THREE.Vector3(...n.position));
+      pts.push(new THREE.Vector3(...n.pos));
     });
     // Add outer ring connection
     for (let i = 0; i < nodes.length; i++) {
-      pts.push(new THREE.Vector3(...nodes[i].position));
-      pts.push(new THREE.Vector3(...nodes[(i + 1) % nodes.length].position));
+      pts.push(new THREE.Vector3(...nodes[i].pos));
+      pts.push(new THREE.Vector3(...nodes[(i + 1) % nodes.length].pos));
     }
     return pts;
   }, [nodes]);
