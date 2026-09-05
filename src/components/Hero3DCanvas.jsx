@@ -176,10 +176,22 @@ const Core = ({ onReveal }) => {
   );
 };
 
-// Mouse Parallax System
+// Responsive Camera Rig and Mouse Parallax
 const Rig = () => {
-  const { camera, pointer } = useThree();
+  const { camera, pointer, size } = useThree();
+  
+  useEffect(() => {
+    // Adjust camera distance based on viewport width to prevent clipping on mobile
+    if (size.width < 768) {
+      camera.position.z = 15; // Zoom out for mobile
+    } else {
+      camera.position.z = 10; // Default for desktop
+    }
+    camera.updateProjectionMatrix();
+  }, [size.width, camera]);
+
   useFrame(() => {
+    // Parallax
     camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 2, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 2, 0.05);
     camera.lookAt(0, 0, 0);
